@@ -32,7 +32,22 @@ async function run() {
     await client.connect();
 
 
-    const LatteCollection = client.db('latteDB').collection("latte")
+    
+
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    // await client.close();
+  }
+}
+run().catch(console.dir);
+
+
+
+
+const LatteCollection = client.db('latteDB').collection("latte")
     const usersCollection = client.db('userDB').collection("user")
 
 
@@ -129,16 +144,6 @@ async function run() {
       res.send(result);
 
     })
-
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    // await client.close();
-  }
-}
-run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
